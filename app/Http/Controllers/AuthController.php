@@ -9,6 +9,15 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
+    public function home()
+    {
+        if (auth()->check()) {
+            return redirect()->route('resources.index');
+        }
+
+        return view('landing');
+    }
+
     public function showRegister()
     {
         return view('auth.register');

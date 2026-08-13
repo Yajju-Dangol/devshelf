@@ -4,12 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ResourceController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    if (auth()->check()) {
-        return redirect()->route('resources.index');
-    }
-    return view('landing');
-})->name('home');
+Route::get('/', [AuthController::class, 'home'])->name('home');
 
 Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
