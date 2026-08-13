@@ -14,6 +14,7 @@ class Resource extends Model
      * @var array<int, string>
      */
     protected $fillable = [
+        'user_id',
         'title',
         'url',
         'category',
@@ -51,5 +52,10 @@ class Resource extends Model
         $query->when($filters['category'] ?? false, function ($query, $category) {
             $query->where('category', $category);
         });
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

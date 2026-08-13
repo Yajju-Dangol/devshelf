@@ -12,13 +12,15 @@ class ResourceController extends Controller
      */
     public function index(Request $request)
     {
-        $resources = Resource::filter($request->only(['search', 'category']))
+        $query = auth()->user()->resources();
+
+        $resources = $query->clone()->filter($request->only(['search', 'category']))
             ->latest()
             ->paginate(12);
 
-        $totalCount = Resource::count();
-        $favoritesCount = Resource::where('is_favorite', true)->count();
-        $topCategory = Resource::select('category')
+        $totalCount = $query->clone()->count();
+        $favoritesCount = $query->clone()->where('is_favorite', true)->count();
+        $topCategory = $query->clone()->select('category')
             ->selectRaw('count(*) as cnt')
             ->groupBy('category')
             ->orderByDesc('cnt')
@@ -61,7 +63,7 @@ class ResourceController extends Controller
 
         $validated['is_favorite'] = $request->has('is_favorite');
 
-        Resource::create($validated);
+        auth()->user()->resources()->create($validated);
 
         return redirect()->route('resources.index')->with('success', 'Resource created successfully.');
     }
@@ -71,6 +73,7 @@ class ResourceController extends Controller
      */
     public function show(Resource $resource)
     {
+        abort_if($resource->user_id !== auth()->id(), 403);
         return view('resources.show', compact('resource'));
     }
 
@@ -79,6 +82,7 @@ class ResourceController extends Controller
      */
     public function edit(Resource $resource)
     {
+        abort_if($resource->user_id !== auth()->id(), 403);
         return view('resources.edit', compact('resource'));
     }
 
@@ -87,6 +91,8 @@ class ResourceController extends Controller
      */
     public function update(\App\Http\Requests\UpdateResourceRequest $request, Resource $resource)
     {
+        abort_if($resource->user_id !== auth()->id(), 403);
+        
         $validated = $request->validated();
         
         $fetcher = app(\App\Services\MetadataFetcher::class);
@@ -120,6 +126,8 @@ class ResourceController extends Controller
      */
     public function destroy(Resource $resource)
     {
+        abort_if($resource->user_id !== auth()->id(), 403);
+        
         $resource->delete();
 
         return redirect()->route('resources.index')->with('success', 'Resource deleted successfully.');
@@ -130,6 +138,8 @@ class ResourceController extends Controller
      */
     public function toggleFavorite(Resource $resource)
     {
+        abort_if($resource->user_id !== auth()->id(), 403);
+
         $resource->update(['is_favorite' => !$resource->is_favorite]);
 
         return back()->with('success', 'Favorite status updated.');

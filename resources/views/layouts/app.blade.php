@@ -11,6 +11,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <style>
+        [x-cloak] { display: none !important; }
         *, *::before, *::after { font-family: 'Inter', ui-sans-serif, system-ui, sans-serif; }
         body { background: #f4f4f7; }
         .bento-card {
@@ -34,7 +35,7 @@
         .pill-tab:not(.active) { background: #fff; color: #6b7280; border-color: #e5e7eb; }
         .pill-tab:not(.active):hover { background: #f3f4f6; color: #111827; border-color: #d1d5db; }
         .gradient-wave {
-            background: linear-gradient(135deg, #7c3aed 0%, #a855f7 40%, #ec4899 100%);
+            background-image: linear-gradient(135deg, #7c3aed 0%, #a855f7 40%, #ec4899 100%);
         }
         .stat-glow { box-shadow: 0 0 40px rgba(124,58,237,0.08); }
         .action-bar { opacity: 0; transition: opacity 0.2s ease; }
@@ -44,7 +45,15 @@
         .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
 </head>
-<body class="min-h-screen antialiased text-neutral-800">
+<body class="min-h-screen antialiased text-neutral-800"
+      x-data="{ loading: false }"
+      @submit.window="loading = true">
+
+    {{-- Global Loading Overlay --}}
+    <div x-show="loading" x-cloak class="fixed inset-0 z-[9999] bg-[#f4f4f7]/80 backdrop-blur-sm flex flex-col items-center justify-center">
+        <div class="w-12 h-12 rounded-full border-4 border-purple-200 border-t-purple-600 animate-spin mb-4 shadow-xl shadow-purple-500/20"></div>
+        <p class="text-sm font-bold text-neutral-700 animate-pulse">Processing...</p>
+    </div>
 
     {{-- ── Navbar ── --}}
     <nav class="sticky top-0 z-50 backdrop-blur-xl bg-[#f4f4f7]/80 border-b border-black/[0.04]">

@@ -109,6 +109,7 @@ class ResourceFactory extends Factory
         $resource = fake()->unique()->randomElement($resources);
 
         return [
+            'user_id'     => \App\Models\User::first()->id ?? \App\Models\User::factory(),
             'title'       => $resource['title'],
             'url'         => $resource['url'],
             'category'    => $resource['category'],
