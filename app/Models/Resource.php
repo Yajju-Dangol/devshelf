@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Resource extends Model
 {
+    use HasFactory;
     /**
      * The attributes that are mass assignable.
      *
@@ -18,6 +20,7 @@ class Resource extends Model
         'description',
         'tags',
         'is_favorite',
+        'favicon_url',
     ];
 
     /**

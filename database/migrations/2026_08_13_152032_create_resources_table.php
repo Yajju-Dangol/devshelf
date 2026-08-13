@@ -19,6 +19,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->json('tags')->nullable();
             $table->boolean('is_favorite')->default(false);
+            $table->string('favicon_url')->nullable();
             $table->timestamps();
         });
     }

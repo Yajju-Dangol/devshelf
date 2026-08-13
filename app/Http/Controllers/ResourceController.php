@@ -16,7 +16,15 @@ class ResourceController extends Controller
             ->latest()
             ->paginate(12);
 
-        return view('resources.index', compact('resources'));
+        $totalCount = Resource::count();
+        $favoritesCount = Resource::where('is_favorite', true)->count();
+        $topCategory = Resource::select('category')
+            ->selectRaw('count(*) as cnt')
+            ->groupBy('category')
+            ->orderByDesc('cnt')
+            ->value('category') ?? 'None yet';
+
+        return view('resources.index', compact('resources', 'totalCount', 'favoritesCount', 'topCategory'));
     }
 
     /**
@@ -34,6 +42,19 @@ class ResourceController extends Controller
     {
         $validated = $request->validated();
         
+        $fetcher = app(\App\Services\MetadataFetcher::class);
+        $meta = $fetcher->fetch($validated['url']);
+
+        if (empty($validated['title'])) {
+            $validated['title'] = $meta['title'] ?? 'Untitled Resource';
+        }
+
+        if (empty($validated['description'])) {
+            $validated['description'] = $meta['description'];
+        }
+
+        $validated['favicon_url'] = $meta['favicon_url'];
+
         if (isset($validated['tags']) && is_string($validated['tags'])) {
             $validated['tags'] = array_filter(array_map('trim', explode(',', $validated['tags'])));
         }
@@ -68,6 +89,19 @@ class ResourceController extends Controller
     {
         $validated = $request->validated();
         
+        $fetcher = app(\App\Services\MetadataFetcher::class);
+        $meta = $fetcher->fetch($validated['url']);
+
+        if (empty($validated['title'])) {
+            $validated['title'] = $meta['title'] ?? 'Untitled Resource';
+        }
+
+        if (empty($validated['description'])) {
+            $validated['description'] = $meta['description'];
+        }
+
+        $validated['favicon_url'] = $meta['favicon_url'];
+
         if (isset($validated['tags']) && is_string($validated['tags'])) {
             $validated['tags'] = array_filter(array_map('trim', explode(',', $validated['tags'])));
         } elseif (!isset($validated['tags'])) {
