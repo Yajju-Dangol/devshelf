@@ -1,58 +1,260 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
-
 <p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+  <img src="public/devshelf-logo.svg" width="80" alt="devshelf logo">
 </p>
 
-## About Laravel
+<h1 align="center">devshelf</h1>
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+<p align="center">
+  Your personal developer bookmark dashboard.<br>
+  Organize, categorize, and access your favorite developer resources instantly.
+</p>
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+<p align="center">
+  <img src="https://img.shields.io/badge/Laravel-13-FF2D20?style=flat-square&logo=laravel&logoColor=white" alt="Laravel 13">
+  <img src="https://img.shields.io/badge/PHP-8.4-777BB4?style=flat-square&logo=php&logoColor=white" alt="PHP 8.4">
+  <img src="https://img.shields.io/badge/PostgreSQL-Supabase-4169E1?style=flat-square&logo=postgresql&logoColor=white" alt="PostgreSQL">
+  <img src="https://img.shields.io/badge/Tailwind_CSS-4-06B6D4?style=flat-square&logo=tailwindcss&logoColor=white" alt="Tailwind CSS">
+  <img src="https://img.shields.io/badge/daisyUI-5-5A0EF8?style=flat-square&logo=daisyui&logoColor=white" alt="daisyUI">
+  <img src="https://img.shields.io/badge/Alpine.js-3-8BC0D0?style=flat-square&logo=alpinedotjs&logoColor=white" alt="Alpine.js">
+</p>
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+## ✨ Features
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- **Bookmark Management** — Save, edit, and delete developer resources (docs, tools, APIs) with titles, URLs, descriptions, categories, and tags.
+- **Auto Metadata Fetching** — Paste a URL and devshelf automatically fetches the page title, description, and favicon for you.
+- **Smart Filtering** — Real-time search and category-based pill tabs to instantly find what you need.
+- **Favorites** — One-click heart toggle to mark your most-used resources.
+- **One-Click Copy** — Copy any resource URL to your clipboard with a single click.
+- **Multi-User Auth** — Lightweight username/password authentication with strict per-user data isolation.
+- **Bento Grid Dashboard** — Ultra-clean, minimalist UI with stat cards, category breakdowns, and animated resource cards.
+- **Loading Overlays** — Smooth loading spinners on every form submission.
+- **Flash Toasts** — Auto-dismissing success notifications with Alpine.js.
+- **Delete Confirmation Modals** — daisyUI modals prevent accidental deletions.
+- **Landing Page** — Public marketing page with hero section, live preview, and feature grid.
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+---
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+## 🛠 Tech Stack
 
-## Agentic Development
+| Layer        | Technology                                                       |
+| ------------ | ---------------------------------------------------------------- |
+| **Framework**| [Laravel 13](https://laravel.com) (PHP 8.4+)                     |
+| **Database** | [PostgreSQL](https://www.postgresql.org/) via Supabase            |
+| **ORM**      | Eloquent                                                         |
+| **Views**    | Blade Templates                                                  |
+| **Styling**  | [Tailwind CSS 4](https://tailwindcss.com) + [daisyUI 5](https://daisyui.com) |
+| **JS**       | [Alpine.js 3](https://alpinejs.dev)                              |
+| **Build**    | [Vite](https://vite.dev)                                         |
+| **Hosting**  | [Railway](https://railway.app)                                   |
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+---
 
-```bash
-composer require laravel/boost --dev
+## 📁 Project Structure
 
-php artisan boost:install
+```
+devshelf/
+├── app/
+│   ├── Http/
+│   │   ├── Controllers/
+│   │   │   ├── AuthController.php        # Login, Register, Logout
+│   │   │   └── ResourceController.php    # CRUD + Favorites + Filtering
+│   │   └── Requests/
+│   │       ├── StoreResourceRequest.php  # Create validation
+│   │       └── UpdateResourceRequest.php # Update validation
+│   ├── Models/
+│   │   ├── User.php                      # User model (hasMany resources)
+│   │   └── Resource.php                  # Resource model (belongsTo user)
+│   └── Services/
+│       └── MetadataFetcher.php           # Auto-fetch title/description/favicon
+├── database/
+│   ├── factories/
+│   │   ├── UserFactory.php
+│   │   └── ResourceFactory.php           # 12 realistic dev resources
+│   ├── migrations/
+│   │   ├── *_create_users_table.php      # Users + username column
+│   │   └── *_create_resources_table.php  # Resources + user_id FK
+│   └── seeders/
+│       ├── DatabaseSeeder.php
+│       └── ResourceSeeder.php            # Seeds 12 bookmarks
+├── resources/views/
+│   ├── layouts/app.blade.php             # Main layout (navbar, toast, loader)
+│   ├── landing.blade.php                 # Public landing page
+│   ├── auth/
+│   │   ├── login.blade.php
+│   │   └── register.blade.php
+│   └── resources/
+│       ├── index.blade.php               # Dashboard with bento grid
+│       ├── create.blade.php              # Add resource form
+│       └── edit.blade.php                # Edit resource form
+├── routes/web.php                        # All routes (guest, auth, resource)
+├── nixpacks.toml                         # Railway/Nixpacks build config
+├── railway.toml                          # Railway deployment config
+└── .env.railway                          # Railway env variable template
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+---
 
-## Contributing
+## 🚀 Getting Started
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### Prerequisites
 
-## Code of Conduct
+- **PHP 8.4+** with extensions: pgsql, pdo_pgsql, mbstring, xml, curl, fileinfo
+- **Composer 2+**
+- **Node.js 20+** and npm
+- **PostgreSQL** database (local or [Supabase](https://supabase.com))
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### Installation
 
-## Security Vulnerabilities
+```bash
+# 1. Clone the repository
+git clone https://github.com/your-username/devshelf.git
+cd devshelf
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+# 2. Install PHP dependencies
+composer install
 
-## License
+# 3. Install JS dependencies
+npm install
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+# 4. Set up environment
+cp .env.example .env
+php artisan key:generate
+```
+
+### Database Setup
+
+Update your `.env` file with your PostgreSQL credentials:
+
+```env
+DB_CONNECTION=pgsql
+DB_HOST=127.0.0.1
+DB_PORT=5432
+DB_DATABASE=devshelf
+DB_USERNAME=your_username
+DB_PASSWORD=your_password
+```
+
+Then run migrations and seed:
+
+```bash
+php artisan migrate --seed
+```
+
+This creates a test user and 12 realistic developer resources:
+
+| Field    | Value              |
+| -------- | ------------------ |
+| Username | `testuser`         |
+| Email    | `test@example.com` |
+| Password | `password`         |
+
+### Running Locally
+
+```bash
+# Terminal 1: Vite dev server (hot reload)
+npm run dev
+
+# Terminal 2: Laravel dev server
+php artisan serve
+```
+
+Visit **http://localhost:8000** to see the landing page.
+
+---
+
+## 🚢 Deploying to Railway
+
+1. Push your code to a **GitHub repository**.
+2. In [Railway](https://railway.app), create a **New Project → Deploy from GitHub Repo**.
+3. Add a **PostgreSQL** plugin to your Railway project.
+4. Go to your app's **Variables** tab and add the following:
+
+   ```env
+   APP_NAME=devshelf
+   APP_ENV=production
+   APP_KEY=base64:YOUR_KEY_HERE       # Generate with: php artisan key:generate --show
+   APP_DEBUG=false
+   APP_URL=https://your-app.up.railway.app
+
+   DB_CONNECTION=pgsql
+   DB_HOST=${{Postgres.PGHOST}}
+   DB_PORT=${{Postgres.PGPORT}}
+   DB_DATABASE=${{Postgres.PGDATABASE}}
+   DB_USERNAME=${{Postgres.PGUSER}}
+   DB_PASSWORD=${{Postgres.PGPASSWORD}}
+
+   LOG_CHANNEL=stderr
+   SESSION_DRIVER=database
+   CACHE_STORE=database
+   QUEUE_CONNECTION=database
+   ```
+
+5. In **Settings → Deploy**, set the **Release Command** to:
+
+   ```bash
+   php artisan migrate --force
+   ```
+
+6. In **Settings → Networking**, click **Generate Domain** to expose your app.
+
+The included `nixpacks.toml` automatically configures **PHP 8.4**, **Node.js 22**, **Nginx**, and all required extensions.
+
+---
+
+## 📐 Database Schema
+
+### `users` table
+
+| Column              | Type      | Constraints          |
+| ------------------- | --------- | -------------------- |
+| `id`                | bigint    | Primary Key          |
+| `name`              | string    | Required             |
+| `username`          | string    | Required, Unique     |
+| `email`             | string    | Nullable, Unique     |
+| `password`          | string    | Hashed               |
+| `created_at`        | timestamp |                      |
+| `updated_at`        | timestamp |                      |
+
+### `resources` table
+
+| Column              | Type      | Constraints                     |
+| ------------------- | --------- | ------------------------------- |
+| `id`                | bigint    | Primary Key                     |
+| `user_id`           | bigint    | Foreign Key → users (cascade)   |
+| `title`             | string    | Required                        |
+| `url`               | string    | Required, Valid URL              |
+| `category`          | string    | Required                        |
+| `description`       | text      | Nullable                        |
+| `tags`              | json      | Nullable                        |
+| `is_favorite`       | boolean   | Default: false                  |
+| `favicon_url`       | string    | Nullable (auto-fetched)         |
+| `created_at`        | timestamp |                                 |
+| `updated_at`        | timestamp |                                 |
+
+---
+
+## 🛣 Routes
+
+| Method   | URI                              | Action                          | Middleware |
+| -------- | -------------------------------- | ------------------------------- | ---------- |
+| GET      | `/`                              | Landing page (or redirect)      | —          |
+| GET      | `/login`                         | Login form                      | guest      |
+| POST     | `/login`                         | Authenticate user               | guest      |
+| GET      | `/register`                      | Registration form               | guest      |
+| POST     | `/register`                      | Create user                     | guest      |
+| POST     | `/logout`                        | Log out                         | auth       |
+| GET      | `/dashboard`                     | Resource index (bento grid)     | auth       |
+| GET      | `/resources/create`              | Create resource form            | auth       |
+| POST     | `/resources`                     | Store resource                  | auth       |
+| GET      | `/resources/{resource}/edit`     | Edit resource form              | auth       |
+| PUT      | `/resources/{resource}`          | Update resource                 | auth       |
+| DELETE   | `/resources/{resource}`          | Delete resource                 | auth       |
+| PATCH    | `/resources/{resource}/favorite` | Toggle favorite                 | auth       |
+
+---
+
+## 📄 License
+
+This project is open-sourced software licensed under the [MIT License](https://opensource.org/licenses/MIT).
