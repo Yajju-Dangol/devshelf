@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="DevShelf — Your curated developer resource hub.">
-    <title>{{ config('app.name', 'DevShelf') }}</title>
+    <meta name="description" content="devshelf — Your curated developer resource hub.">
+    <title>{{ config('app.name', 'devshelf') }}</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -60,10 +60,8 @@
         <div class="max-w-7xl mx-auto px-5 h-16 flex items-center justify-between">
             {{-- Logo --}}
             <a href="{{ route('resources.index') }}" class="flex items-center gap-2.5 group select-none">
-                <div class="w-9 h-9 rounded-xl gradient-wave flex items-center justify-center shadow-lg shadow-purple-500/20">
-                    <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
-                </div>
-                <span class="text-lg font-extrabold tracking-tight text-neutral-900">DevShelf</span>
+                <img src="{{ asset('devshelf-logo.svg') }}" alt="devshelf logo" class="w-9 h-9">
+                <span class="text-lg font-extrabold tracking-tight text-neutral-900">devshelf</span>
             </a>
 
             {{-- Center Pill Tabs --}}

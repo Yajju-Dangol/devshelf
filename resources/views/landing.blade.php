@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="DevShelf — Your personal developer bookmark dashboard.">
-    <title>DevShelf — Organize Your Developer Tools</title>
+    <meta name="description" content="devshelf — Your personal developer bookmark dashboard.">
+    <title>devshelf — Organize Your Developer Tools</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -34,10 +34,8 @@
         <div class="max-w-7xl mx-auto px-5 h-20 flex items-center justify-between">
             {{-- Logo --}}
             <a href="/" class="flex items-center gap-2.5 group select-none">
-                <div class="w-10 h-10 rounded-xl gradient-wave flex items-center justify-center shadow-lg shadow-purple-500/20">
-                    <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
-                </div>
-                <span class="text-xl font-extrabold tracking-tight text-neutral-900">DevShelf</span>
+                <img src="{{ asset('devshelf-logo.svg') }}" alt="devshelf logo" class="w-10 h-10">
+                <span class="text-xl font-extrabold tracking-tight text-neutral-900">devshelf</span>
             </a>
 
             {{-- Auth Buttons --}}
@@ -60,7 +58,7 @@
                 <span class="text-transparent bg-clip-text gradient-wave">bookmark dashboard.</span>
             </h1>
             <p class="text-lg text-neutral-500 mb-10 max-w-2xl mx-auto leading-relaxed">
-                Stop losing important documentation and tools in endless browser tabs. DevShelf helps you organize, categorize, and access your favorite developer resources instantly.
+                Stop losing important documentation and tools in endless browser tabs. devshelf helps you organize, categorize, and access your favorite developer resources instantly.
             </p>
             <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
                 <a href="{{ route('register') }}" class="w-full sm:w-auto inline-flex items-center justify-center bg-neutral-900 hover:bg-neutral-800 text-white text-base font-bold rounded-full px-8 py-4 shadow-xl shadow-neutral-900/20 transition-all hover:scale-[1.02]">
@@ -135,7 +133,7 @@
     </main>
 
     <footer class="py-8 text-center border-t border-black/5 mt-auto">
-        <p class="text-sm text-neutral-400 font-medium">&copy; {{ date('Y') }} DevShelf. Built for developers.</p>
+        <p class="text-sm text-neutral-400 font-medium">&copy; {{ date('Y') }} devshelf. Built for developers.</p>
     </footer>
 
 </body>
