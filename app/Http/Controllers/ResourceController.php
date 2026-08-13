@@ -10,9 +10,13 @@ class ResourceController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $resources = Resource::filter($request->only(['search', 'category']))
+            ->latest()
+            ->paginate(12);
+
+        return view('resources.index', compact('resources'));
     }
 
     /**
@@ -20,15 +24,25 @@ class ResourceController extends Controller
      */
     public function create()
     {
-        //
+        return view('resources.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(\App\Http\Requests\StoreResourceRequest $request)
     {
-        //
+        $validated = $request->validated();
+        
+        if (isset($validated['tags']) && is_string($validated['tags'])) {
+            $validated['tags'] = array_filter(array_map('trim', explode(',', $validated['tags'])));
+        }
+
+        $validated['is_favorite'] = $request->has('is_favorite');
+
+        Resource::create($validated);
+
+        return redirect()->route('resources.index')->with('success', 'Resource created successfully.');
     }
 
     /**
@@ -36,7 +50,7 @@ class ResourceController extends Controller
      */
     public function show(Resource $resource)
     {
-        //
+        return view('resources.show', compact('resource'));
     }
 
     /**
@@ -44,15 +58,27 @@ class ResourceController extends Controller
      */
     public function edit(Resource $resource)
     {
-        //
+        return view('resources.edit', compact('resource'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Resource $resource)
+    public function update(\App\Http\Requests\UpdateResourceRequest $request, Resource $resource)
     {
-        //
+        $validated = $request->validated();
+        
+        if (isset($validated['tags']) && is_string($validated['tags'])) {
+            $validated['tags'] = array_filter(array_map('trim', explode(',', $validated['tags'])));
+        } elseif (!isset($validated['tags'])) {
+            $validated['tags'] = [];
+        }
+
+        $validated['is_favorite'] = $request->has('is_favorite');
+
+        $resource->update($validated);
+
+        return redirect()->route('resources.index')->with('success', 'Resource updated successfully.');
     }
 
     /**
@@ -60,6 +86,18 @@ class ResourceController extends Controller
      */
     public function destroy(Resource $resource)
     {
-        //
+        $resource->delete();
+
+        return redirect()->route('resources.index')->with('success', 'Resource deleted successfully.');
+    }
+
+    /**
+     * Toggle the favorite status of the specified resource.
+     */
+    public function toggleFavorite(Resource $resource)
+    {
+        $resource->update(['is_favorite' => !$resource->is_favorite]);
+
+        return back()->with('success', 'Favorite status updated.');
     }
 }

@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('resources', function (Blueprint $table) {
             $table->id();
+            $table->string('title');
+            $table->string('url');
+            $table->string('category');
+            $table->text('description')->nullable();
+            $table->json('tags')->nullable();
+            $table->boolean('is_favorite')->default(false);
             $table->timestamps();
         });
     }
